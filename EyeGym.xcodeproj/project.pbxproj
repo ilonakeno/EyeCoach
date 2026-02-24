@@ -6,8 +6,53 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A41250332F40A7F500F6A95D /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41250322F40A7E900F6A95D /* SpeechBubble.swift */; };
+		A443E5E22F2390570006DA36 /* EyeGymApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E5E12F2390570006DA36 /* EyeGymApp.swift */; };
+		A443E5E42F2390570006DA36 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E5E32F2390570006DA36 /* HomeView.swift */; };
+		A443E5E82F2390590006DA36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A443E5E72F2390590006DA36 /* Assets.xcassets */; };
+		A443E5FF2F23969D0006DA36 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E5FC2F2394BA0006DA36 /* UserSession.swift */; };
+		A443E6032F2397E50006DA36 /* ARCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E6022F2397E30006DA36 /* ARCameraView.swift */; };
+		A443E6052F23982C0006DA36 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E6042F23982C0006DA36 /* ExerciseView.swift */; };
+		A443E6062F239BBF0006DA36 /* ARManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E6002F2397A40006DA36 /* ARManager.swift */; };
+		A443E6082F239DA60006DA36 /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E6072F239D000006DA36 /* ExerciseViewModel.swift */; };
+		A4749EA92F37C4C900AE21D6 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EA82F37C4C500AE21D6 /* ProfileView.swift */; };
+		A4749EAB2F37C4E700AE21D6 /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EAA2F37C4E400AE21D6 /* ExerciseListView.swift */; };
+		A4749EAC2F37C5F000AE21D6 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EA72F37C4A000AE21D6 /* DesignSystem.swift */; };
+		A4749EAE2F37C9FC00AE21D6 /* StyleModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EAD2F37C9F900AE21D6 /* StyleModifiers.swift */; };
+		A4749EB02F38A59200AE21D6 /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EAF2F38A58F00AE21D6 /* InstructionView.swift */; };
+		A4749EB22F38A5A900AE21D6 /* TypewriterText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EB12F38A5A700AE21D6 /* TypewriterText.swift */; };
+		A4749EB42F3A76B900AE21D6 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EB32F3A76B700AE21D6 /* UserManager.swift */; };
+		A4749EB72F3A770B00AE21D6 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EB62F3A770700AE21D6 /* AuthView.swift */; };
+		A4749EC42F3B7EDB00AE21D6 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EC32F3B7ED400AE21D6 /* EditProfileView.swift */; };
+		A480A26F2F488F1D00695CBE /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A480A26E2F488F1A00695CBE /* PermissionsView.swift */; };
+		A4B8FDC62F4B63F700A3C2DF /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B8FDC52F4B63EA00A3C2DF /* SpeechManager.swift */; };
+		A4B8FDCA2F4B752A00A3C2DF /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B8FDC92F4B751E00A3C2DF /* OnboardingView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		A41250322F40A7E900F6A95D /* SpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
 		A443E5DE2F2390570006DA36 /* EyeGym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeGym.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A443E5E12F2390570006DA36 /* EyeGymApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeGymApp.swift; sourceTree = "<group>"; };
+		A443E5E32F2390570006DA36 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A443E5E72F2390590006DA36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A443E5FC2F2394BA0006DA36 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		A443E6002F2397A40006DA36 /* ARManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARManager.swift; sourceTree = "<group>"; };
+		A443E6022F2397E30006DA36 /* ARCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCameraView.swift; sourceTree = "<group>"; };
+		A443E6042F23982C0006DA36 /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
+		A443E6072F239D000006DA36 /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
+		A4749EA72F37C4A000AE21D6 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		A4749EA82F37C4C500AE21D6 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		A4749EAA2F37C4E400AE21D6 /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
+		A4749EAD2F37C9F900AE21D6 /* StyleModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleModifiers.swift; sourceTree = "<group>"; };
+		A4749EAF2F38A58F00AE21D6 /* InstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionView.swift; sourceTree = "<group>"; };
+		A4749EB12F38A5A700AE21D6 /* TypewriterText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypewriterText.swift; sourceTree = "<group>"; };
+		A4749EB32F3A76B700AE21D6 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		A4749EB62F3A770700AE21D6 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		A4749EC32F3B7ED400AE21D6 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		A480A26E2F488F1A00695CBE /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		A4B8FDC52F4B63EA00A3C2DF /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
+		A4B8FDC92F4B751E00A3C2DF /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,7 +90,14 @@
 		A443E5D52F2390570006DA36 = {
 			isa = PBXGroup;
 			children = (
+				A4749EA62F37C49500AE21D6 /* Helpers */,
+				A443E5FB2F2393EC0006DA36 /* Resources */,
+				A443E5FA2F2393DC0006DA36 /* Services */,
+				A443E5F92F2393D00006DA36 /* ViewModels */,
+				A443E5F72F23939A0006DA36 /* Models */,
+				A443E5F62F23937D0006DA36 /* Views */,
 				A443E5E02F2390570006DA36 /* EyeGym */,
+				A443E5F12F2390E40006DA36 /* App */,
 				A443E5DF2F2390570006DA36 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +108,92 @@
 				A443E5DE2F2390570006DA36 /* EyeGym.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A443E5F12F2390E40006DA36 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A443E5E12F2390570006DA36 /* EyeGymApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A443E5F62F23937D0006DA36 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A4B8FDC92F4B751E00A3C2DF /* OnboardingView.swift */,
+				A4749EC32F3B7ED400AE21D6 /* EditProfileView.swift */,
+				A4749EB52F3A770000AE21D6 /* Auth */,
+				A4749EAF2F38A58F00AE21D6 /* InstructionView.swift */,
+				A4749EAA2F37C4E400AE21D6 /* ExerciseListView.swift */,
+				A4749EA82F37C4C500AE21D6 /* ProfileView.swift */,
+				A443E6012F2397D30006DA36 /* Components */,
+				A443E5E32F2390570006DA36 /* HomeView.swift */,
+				A443E6042F23982C0006DA36 /* ExerciseView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A443E5F72F23939A0006DA36 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A443E5FC2F2394BA0006DA36 /* UserSession.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A443E5F92F2393D00006DA36 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A443E6072F239D000006DA36 /* ExerciseViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A443E5FA2F2393DC0006DA36 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A4B8FDC52F4B63EA00A3C2DF /* SpeechManager.swift */,
+				A4749EB32F3A76B700AE21D6 /* UserManager.swift */,
+				A443E6002F2397A40006DA36 /* ARManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A443E5FB2F2393EC0006DA36 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A443E5E72F2390590006DA36 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A443E6012F2397D30006DA36 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A41250322F40A7E900F6A95D /* SpeechBubble.swift */,
+				A4749EAD2F37C9F900AE21D6 /* StyleModifiers.swift */,
+				A443E6022F2397E30006DA36 /* ARCameraView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		A4749EA62F37C49500AE21D6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A4749EB12F38A5A700AE21D6 /* TypewriterText.swift */,
+				A4749EA72F37C4A000AE21D6 /* DesignSystem.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A4749EB52F3A770000AE21D6 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A480A26E2F488F1A00695CBE /* PermissionsView.swift */,
+				A4749EB62F3A770700AE21D6 /* AuthView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,6 +245,8 @@
 			);
 			mainGroup = A443E5D52F2390570006DA36;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A443E5DF2F2390570006DA36 /* Products */;
 			projectDirPath = "";
@@ -122,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A443E5E82F2390590006DA36 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +273,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4749EA92F37C4C900AE21D6 /* ProfileView.swift in Sources */,
+				A443E6032F2397E50006DA36 /* ARCameraView.swift in Sources */,
+				A4749EC42F3B7EDB00AE21D6 /* EditProfileView.swift in Sources */,
+				A4749EB42F3A76B900AE21D6 /* UserManager.swift in Sources */,
+				A4B8FDC62F4B63F700A3C2DF /* SpeechManager.swift in Sources */,
+				A443E5FF2F23969D0006DA36 /* UserSession.swift in Sources */,
+				A4B8FDCA2F4B752A00A3C2DF /* OnboardingView.swift in Sources */,
+				A443E5E42F2390570006DA36 /* HomeView.swift in Sources */,
+				A4749EAB2F37C4E700AE21D6 /* ExerciseListView.swift in Sources */,
+				A480A26F2F488F1D00695CBE /* PermissionsView.swift in Sources */,
+				A4749EB02F38A59200AE21D6 /* InstructionView.swift in Sources */,
+				A443E5E22F2390570006DA36 /* EyeGymApp.swift in Sources */,
+				A4749EB22F38A5A900AE21D6 /* TypewriterText.swift in Sources */,
+				A4749EAC2F37C5F000AE21D6 /* DesignSystem.swift in Sources */,
+				A443E6062F239BBF0006DA36 /* ARManager.swift in Sources */,
+				A4749EB72F3A770B00AE21D6 /* AuthView.swift in Sources */,
+				A443E6082F239DA60006DA36 /* ExerciseViewModel.swift in Sources */,
+				A41250332F40A7F500F6A95D /* SpeechBubble.swift in Sources */,
+				A443E6052F23982C0006DA36 /* ExerciseView.swift in Sources */,
+				A4749EAE2F37C9FC00AE21D6 /* StyleModifiers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +304,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ACTL7HTFZX;
@@ -152,6 +315,9 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyeGym/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EyeGym;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "нам потрібна камера аби трекати правильність виконання";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -162,13 +328,14 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ilonakeno.EyeGym;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -188,6 +355,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ACTL7HTFZX;
@@ -197,6 +366,9 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyeGym/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EyeGym;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "нам потрібна камера аби трекати правильність виконання";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -207,13 +379,14 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ilonakeno.EyeGym;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
