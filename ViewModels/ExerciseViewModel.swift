@@ -2,6 +2,7 @@ import SwiftUI
 import ARKit
 import Combine
 import UIKit
+import AudioToolbox // 🔥 ДОДАНО ДЛЯ ЗВУКУ ПОМИЛКИ 🔥
 
 enum CircleStage { case up, left, down, right }
 enum HorizonStage { case start, right }
@@ -13,6 +14,13 @@ enum Figure8Stage {
     case downRight  // 2. Вправо-Вниз ↘️
     case upLeft     // 3. Вліво-Вгору ↖️
     case downLeft   // 4. Вліво-Вниз ↙️
+}
+
+// 🔥 НОВЕ: Стан для вправи Blink and Focus 🔥
+enum BlinkFocusState {
+    case waiting
+    case blinking
+    case focusing
 }
 
 class ExerciseViewModel: ObservableObject {
@@ -32,6 +40,13 @@ class ExerciseViewModel: ObservableObject {
     @Published var horizonStage: HorizonStage = .start
     @Published var verticalStage: VerticalStage = .start
     @Published var figure8Stage: Figure8Stage = .start
+    
+    // 🔥 НОВІ ЗМІННІ ДЛЯ НОВИХ ВПРАВ 🔥
+    @Published var dinoWarningText: String? = nil
+    @Published var blinkFocusPhaseText: String = ""
+    @Published var blinkFocusState: BlinkFocusState = .waiting
+    private var lastWarningTime: Date = Date.distantPast
+    private var lastBlinkTimestamp: Date = Date()
     
     func startExercise(name: String) {
         arManager.start()
@@ -55,6 +70,24 @@ class ExerciseViewModel: ObservableObject {
             lastTimerUpdate = Date()
             feedbackMessage = "Close your eyes!"
         }
+        // 🔥 НОВЕ: ІНІЦІАЛІЗАЦІЯ НОВИХ ВПРАВ 🔥
+        else if name == "Focus" || name == "Unfocus" {
+            timeRemaining = 15
+            lastTimerUpdate = Date()
+            feedbackMessage = "Don't blink!"
+            dinoWarningText = nil
+        } else if name == "Blink and Focus" {
+            currentLap = 0
+            targetLaps = 3
+            blinkFocusState = .waiting
+            blinkFocusPhaseText = "Blink once to start!"
+            dinoWarningText = nil
+            lastTimerUpdate = Date()
+        } else if name == "Zig Zag" || name == "Spiral" {
+            timeRemaining = 24 // 6 проходів по 4 сек
+            lastTimerUpdate = Date()
+            feedbackMessage = "Follow the capsule!"
+        }
     }
     
     func stopCamera() { arManager.pause() }
@@ -62,6 +95,7 @@ class ExerciseViewModel: ObservableObject {
     func resetGame() {
         currentLap = 0; isCompleted = false; isEyesClosed = false; timeRemaining = 30
         circleStage = .up; horizonStage = .start; verticalStage = .start; figure8Stage = .start
+        dinoWarningText = nil
     }
     
     func updateGameLogic(exerciseName: String) {
@@ -73,6 +107,11 @@ class ExerciseViewModel: ObservableObject {
         else if exerciseName == "Vertical" { checkVerticalLogic() }
         else if exerciseName == "Figure 8" { checkFigure8Logic() }
         else if exerciseName == "Massage" { checkMassageLogic() } // 🔥 ВИКЛИК ЛОГІКИ МАСАЖУ 🔥
+        
+        // 🔥 НОВЕ: ВИКЛИК ЛОГІКИ ДЛЯ НОВИХ ВПРАВ 🔥
+        else if exerciseName == "Focus" || exerciseName == "Unfocus" { checkFocusLogic() }
+        else if exerciseName == "Blink and Focus" { checkBlinkAndFocusLogic() }
+        else if exerciseName == "Zig Zag" || exerciseName == "Spiral" { checkVisualOnlyLogic() }
     }
     
     // 🔥 НОВА ФУНКЦІЯ: ЛОГІКА МАСАЖУ 🔥
@@ -174,6 +213,148 @@ class ExerciseViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    // =========================================================================
+    // 🔥 НОВЕ: ЛОГІКА ДЛЯ FOCUS ТА UNFOCUS 🔥
+    // =========================================================================
+    private func checkFocusLogic() {
+        let threshold: Float = 0.75
+        let eyesClosedNow = (arManager.blinkLeft > threshold && arManager.blinkRight > threshold)
+        let now = Date()
+        
+        // Перевіряємо чи закриті очі
+        if eyesClosedNow {
+            // Якщо минуло більше 3 секунд з минулого попередження - кричимо знову
+            if now.timeIntervalSince(lastWarningTime) > 3.0 {
+                triggerErrorFeedback()
+                showDinoWarning("Open your eyes!")
+                lastWarningTime = now
+            }
+        }
+        
+        // Віднімаємо таймер кожну секунду
+        if now.timeIntervalSince(lastTimerUpdate) >= 1.0 {
+            timeRemaining -= 1
+            lastTimerUpdate = now
+            
+            if timeRemaining <= 0 {
+                finishExercise()
+            }
+        }
+    }
+    
+    // =========================================================================
+    // 🔥 НОВЕ: ЛОГІКА ДЛЯ BLINK AND FOCUS (МАШИНА СТАНІВ) 🔥
+    // =========================================================================
+    private func checkBlinkAndFocusLogic() {
+        let threshold: Float = 0.75
+        let eyesClosedNow = (arManager.blinkLeft > threshold && arManager.blinkRight > threshold)
+        let now = Date()
+        
+        switch blinkFocusState {
+        case .waiting:
+            // Чекаємо першого кліпання, щоб почати
+            if eyesClosedNow {
+                blinkFocusState = .blinking
+                timeRemaining = 10
+                lastTimerUpdate = now
+                lastBlinkTimestamp = now
+                blinkFocusPhaseText = "Blink fast!"
+            }
+            
+        case .blinking:
+            if eyesClosedNow {
+                // Оновлюємо час останнього кліпання
+                lastBlinkTimestamp = now
+            } else {
+                // Якщо очі відкриті більше 1 секунди - попереджаємо
+                if now.timeIntervalSince(lastBlinkTimestamp) > 1.0 {
+                    if now.timeIntervalSince(lastWarningTime) > 3.0 {
+                        showDinoWarning("Keep blinking! Don't stop!")
+                        lastWarningTime = now
+                    }
+                }
+            }
+            
+            // Таймер для фази кліпання (10 сек)
+            if now.timeIntervalSince(lastTimerUpdate) >= 1.0 {
+                timeRemaining -= 1
+                lastTimerUpdate = now
+                if timeRemaining <= 0 {
+                    blinkFocusState = .focusing
+                    timeRemaining = 5
+                    blinkFocusPhaseText = "Focus! Don't blink!"
+                    triggerHapticFeedback() // Сигнал про зміну фази
+                }
+            }
+            
+        case .focusing:
+            // Якщо людина кліпає у фазі фокусу - караємо
+            if eyesClosedNow {
+                if now.timeIntervalSince(lastWarningTime) > 3.0 {
+                    triggerErrorFeedback()
+                    showDinoWarning("Keep focus! Do not blink!")
+                    lastWarningTime = now
+                }
+            }
+            
+            // Таймер для фази фокусу (5 сек)
+            if now.timeIntervalSince(lastTimerUpdate) >= 1.0 {
+                timeRemaining -= 1
+                lastTimerUpdate = now
+                if timeRemaining <= 0 {
+                    currentLap += 1
+                    
+                    if currentLap >= targetLaps {
+                        blinkFocusPhaseText = "Done!"
+                        finishExercise()
+                    } else {
+                        // Повертаємось до кліпання
+                        blinkFocusState = .blinking
+                        timeRemaining = 10
+                        blinkFocusPhaseText = "Blink fast again!"
+                        lastBlinkTimestamp = now
+                        triggerHapticFeedback()
+                    }
+                }
+            }
+        }
+    }
+    
+    // =========================================================================
+    // 🔥 НОВЕ: ЛОГІКА ДЛЯ ВІЗУАЛЬНИХ ВПРАВ (Zig Zag, Spiral) 🔥
+    // =========================================================================
+    private func checkVisualOnlyLogic() {
+        let now = Date()
+        if now.timeIntervalSince(lastTimerUpdate) >= 1.0 {
+            timeRemaining -= 1
+            lastTimerUpdate = now
+            if timeRemaining <= 0 {
+                finishExercise()
+            }
+        }
+    }
+    
+    // =========================================================================
+    // 🔥 НОВЕ: ДОПОМІЖНІ ФУНКЦІЇ ДЛЯ ПОМИЛОК 🔥
+    // =========================================================================
+    private func showDinoWarning(_ text: String) {
+        dinoWarningText = text
+        // Ховаємо Діно через 2.5 секунди
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            if self.dinoWarningText == text {
+                self.dinoWarningText = nil
+            }
+        }
+    }
+    
+    private func triggerErrorFeedback() {
+        // Вібрація помилки
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.error)
+        // Системний звук "Бз-Бз" (якщо телефон не в беззвучному режимі)
+        AudioServicesPlaySystemSound(1006)
     }
     
     private func triggerHapticFeedback() {

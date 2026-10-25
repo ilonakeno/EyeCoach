@@ -1,0 +1,12 @@
+.DS_Store
+xcuserdata/
+DerivedData/
+*.swiftpm.zip
+EyeGym.swiftpm/
+# особисті документи й скріни поруч із проєктом
+*.docx
+*.pdf
+~$*
+*.PNG
+Frame*.png
+Screenshot*.png

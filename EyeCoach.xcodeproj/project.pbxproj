@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A40016D02F50B6F40090D4F3 /* WorkoutSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40016CF2F50B6EE0090D4F3 /* WorkoutSessionView.swift */; };
 		A41250332F40A7F500F6A95D /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41250322F40A7E900F6A95D /* SpeechBubble.swift */; };
 		A443E5E22F2390570006DA36 /* EyeGymApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E5E12F2390570006DA36 /* EyeGymApp.swift */; };
 		A443E5E42F2390570006DA36 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443E5E32F2390570006DA36 /* HomeView.swift */; };
@@ -23,16 +24,25 @@
 		A4749EB02F38A59200AE21D6 /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EAF2F38A58F00AE21D6 /* InstructionView.swift */; };
 		A4749EB22F38A5A900AE21D6 /* TypewriterText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EB12F38A5A700AE21D6 /* TypewriterText.swift */; };
 		A4749EB42F3A76B900AE21D6 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EB32F3A76B700AE21D6 /* UserManager.swift */; };
-		A4749EB72F3A770B00AE21D6 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EB62F3A770700AE21D6 /* AuthView.swift */; };
 		A4749EC42F3B7EDB00AE21D6 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4749EC32F3B7ED400AE21D6 /* EditProfileView.swift */; };
 		A480A26F2F488F1D00695CBE /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A480A26E2F488F1A00695CBE /* PermissionsView.swift */; };
+		A49BD09F2F75CA7F002B0FBC /* ProfileSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD09E2F75CA71002B0FBC /* ProfileSetupView.swift */; };
+		A49BD0A22F75CF32002B0FBC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A49BD0A12F75CF32002B0FBC /* FirebaseAuth */; };
+		A49BD0A42F75CF32002B0FBC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A49BD0A32F75CF32002B0FBC /* FirebaseFirestore */; };
+		A49BD0A62F75D158002B0FBC /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD0A52F75D150002B0FBC /* AuthManager.swift */; };
+		A49BD0B32F76B7B7002B0FBC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A49BD0B22F76B7B7002B0FBC /* GoogleSignIn */; };
+		A49BD0B72F76FEC9002B0FBC /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD0B62F76FEBC002B0FBC /* EmailSignUpView.swift */; };
+		A49BD0B92F7705B5002B0FBC /* SecuritySettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD0B82F7705AE002B0FBC /* SecuritySettingView.swift */; };
+		A49BD0BB2F772819002B0FBC /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49BD0BA2F772812002B0FBC /* ImagePicker.swift */; };
+		A49BD0BE2F77B4AA002B0FBC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A49BD0BD2F77B4AA002B0FBC /* FirebaseStorage */; };
 		A4B8FDC62F4B63F700A3C2DF /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B8FDC52F4B63EA00A3C2DF /* SpeechManager.swift */; };
 		A4B8FDCA2F4B752A00A3C2DF /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B8FDC92F4B751E00A3C2DF /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A40016CF2F50B6EE0090D4F3 /* WorkoutSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionView.swift; sourceTree = "<group>"; };
 		A41250322F40A7E900F6A95D /* SpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
-		A443E5DE2F2390570006DA36 /* EyeGym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeGym.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A443E5DE2F2390570006DA36 /* EyeCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A443E5E12F2390570006DA36 /* EyeGymApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeGymApp.swift; sourceTree = "<group>"; };
 		A443E5E32F2390570006DA36 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A443E5E72F2390590006DA36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -48,20 +58,24 @@
 		A4749EAF2F38A58F00AE21D6 /* InstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionView.swift; sourceTree = "<group>"; };
 		A4749EB12F38A5A700AE21D6 /* TypewriterText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypewriterText.swift; sourceTree = "<group>"; };
 		A4749EB32F3A76B700AE21D6 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		A4749EB62F3A770700AE21D6 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		A4749EC32F3B7ED400AE21D6 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		A480A26E2F488F1A00695CBE /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		A49BD09E2F75CA71002B0FBC /* ProfileSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupView.swift; sourceTree = "<group>"; };
+		A49BD0A52F75D150002B0FBC /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		A49BD0B62F76FEBC002B0FBC /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
+		A49BD0B82F7705AE002B0FBC /* SecuritySettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingView.swift; sourceTree = "<group>"; };
+		A49BD0BA2F772812002B0FBC /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A4B8FDC52F4B63EA00A3C2DF /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
 		A4B8FDC92F4B751E00A3C2DF /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A443E5EB2F2390590006DA36 /* Exceptions for "EyeGym" folder in "EyeGym" target */ = {
+		A49BD0B52F76FBFC002B0FBC /* Exceptions for "EyeGym" folder in "EyeCoach" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = A443E5DD2F2390570006DA36 /* EyeGym */;
+			target = A443E5DD2F2390570006DA36 /* EyeCoach */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -69,7 +83,7 @@
 		A443E5E02F2390570006DA36 /* EyeGym */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				A443E5EB2F2390590006DA36 /* Exceptions for "EyeGym" folder in "EyeGym" target */,
+				A49BD0B52F76FBFC002B0FBC /* Exceptions for "EyeGym" folder in "EyeCoach" target */,
 			);
 			path = EyeGym;
 			sourceTree = "<group>";
@@ -81,6 +95,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A49BD0A22F75CF32002B0FBC /* FirebaseAuth in Frameworks */,
+				A49BD0BE2F77B4AA002B0FBC /* FirebaseStorage in Frameworks */,
+				A49BD0A42F75CF32002B0FBC /* FirebaseFirestore in Frameworks */,
+				A49BD0B32F76B7B7002B0FBC /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +116,7 @@
 				A443E5F62F23937D0006DA36 /* Views */,
 				A443E5E02F2390570006DA36 /* EyeGym */,
 				A443E5F12F2390E40006DA36 /* App */,
+				A49BD0BC2F77B4AA002B0FBC /* Frameworks */,
 				A443E5DF2F2390570006DA36 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,7 +124,7 @@
 		A443E5DF2F2390570006DA36 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A443E5DE2F2390570006DA36 /* EyeGym.app */,
+				A443E5DE2F2390570006DA36 /* EyeCoach.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,6 +140,10 @@
 		A443E5F62F23937D0006DA36 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A49BD0B82F7705AE002B0FBC /* SecuritySettingView.swift */,
+				A49BD0B62F76FEBC002B0FBC /* EmailSignUpView.swift */,
+				A49BD09E2F75CA71002B0FBC /* ProfileSetupView.swift */,
+				A40016CF2F50B6EE0090D4F3 /* WorkoutSessionView.swift */,
 				A4B8FDC92F4B751E00A3C2DF /* OnboardingView.swift */,
 				A4749EC32F3B7ED400AE21D6 /* EditProfileView.swift */,
 				A4749EB52F3A770000AE21D6 /* Auth */,
@@ -153,6 +176,8 @@
 		A443E5FA2F2393DC0006DA36 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A49BD0BA2F772812002B0FBC /* ImagePicker.swift */,
+				A49BD0A52F75D150002B0FBC /* AuthManager.swift */,
 				A4B8FDC52F4B63EA00A3C2DF /* SpeechManager.swift */,
 				A4749EB32F3A76B700AE21D6 /* UserManager.swift */,
 				A443E6002F2397A40006DA36 /* ARManager.swift */,
@@ -191,17 +216,23 @@
 			isa = PBXGroup;
 			children = (
 				A480A26E2F488F1A00695CBE /* PermissionsView.swift */,
-				A4749EB62F3A770700AE21D6 /* AuthView.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		A49BD0BC2F77B4AA002B0FBC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A443E5DD2F2390570006DA36 /* EyeGym */ = {
+		A443E5DD2F2390570006DA36 /* EyeCoach */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A443E5EC2F2390590006DA36 /* Build configuration list for PBXNativeTarget "EyeGym" */;
+			buildConfigurationList = A443E5EC2F2390590006DA36 /* Build configuration list for PBXNativeTarget "EyeCoach" */;
 			buildPhases = (
 				A443E5DA2F2390570006DA36 /* Sources */,
 				A443E5DB2F2390570006DA36 /* Frameworks */,
@@ -214,11 +245,15 @@
 			fileSystemSynchronizedGroups = (
 				A443E5E02F2390570006DA36 /* EyeGym */,
 			);
-			name = EyeGym;
+			name = EyeCoach;
 			packageProductDependencies = (
+				A49BD0A12F75CF32002B0FBC /* FirebaseAuth */,
+				A49BD0A32F75CF32002B0FBC /* FirebaseFirestore */,
+				A49BD0B22F76B7B7002B0FBC /* GoogleSignIn */,
+				A49BD0BD2F77B4AA002B0FBC /* FirebaseStorage */,
 			);
 			productName = EyeGym;
-			productReference = A443E5DE2F2390570006DA36 /* EyeGym.app */;
+			productReference = A443E5DE2F2390570006DA36 /* EyeCoach.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -236,7 +271,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A443E5D92F2390570006DA36 /* Build configuration list for PBXProject "EyeGym" */;
+			buildConfigurationList = A443E5D92F2390570006DA36 /* Build configuration list for PBXProject "EyeCoach" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -246,13 +281,15 @@
 			mainGroup = A443E5D52F2390570006DA36;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				A49BD0A02F75CF32002B0FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A49BD0B12F76B7B7002B0FBC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A443E5DF2F2390570006DA36 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A443E5DD2F2390570006DA36 /* EyeGym */,
+				A443E5DD2F2390570006DA36 /* EyeCoach */,
 			);
 		};
 /* End PBXProject section */
@@ -275,22 +312,27 @@
 			files = (
 				A4749EA92F37C4C900AE21D6 /* ProfileView.swift in Sources */,
 				A443E6032F2397E50006DA36 /* ARCameraView.swift in Sources */,
+				A49BD0BB2F772819002B0FBC /* ImagePicker.swift in Sources */,
 				A4749EC42F3B7EDB00AE21D6 /* EditProfileView.swift in Sources */,
+				A40016D02F50B6F40090D4F3 /* WorkoutSessionView.swift in Sources */,
 				A4749EB42F3A76B900AE21D6 /* UserManager.swift in Sources */,
+				A49BD0B92F7705B5002B0FBC /* SecuritySettingView.swift in Sources */,
 				A4B8FDC62F4B63F700A3C2DF /* SpeechManager.swift in Sources */,
 				A443E5FF2F23969D0006DA36 /* UserSession.swift in Sources */,
 				A4B8FDCA2F4B752A00A3C2DF /* OnboardingView.swift in Sources */,
 				A443E5E42F2390570006DA36 /* HomeView.swift in Sources */,
 				A4749EAB2F37C4E700AE21D6 /* ExerciseListView.swift in Sources */,
 				A480A26F2F488F1D00695CBE /* PermissionsView.swift in Sources */,
+				A49BD09F2F75CA7F002B0FBC /* ProfileSetupView.swift in Sources */,
+				A49BD0B72F76FEC9002B0FBC /* EmailSignUpView.swift in Sources */,
 				A4749EB02F38A59200AE21D6 /* InstructionView.swift in Sources */,
 				A443E5E22F2390570006DA36 /* EyeGymApp.swift in Sources */,
 				A4749EB22F38A5A900AE21D6 /* TypewriterText.swift in Sources */,
 				A4749EAC2F37C5F000AE21D6 /* DesignSystem.swift in Sources */,
 				A443E6062F239BBF0006DA36 /* ARManager.swift in Sources */,
-				A4749EB72F3A770B00AE21D6 /* AuthView.swift in Sources */,
 				A443E6082F239DA60006DA36 /* ExerciseViewModel.swift in Sources */,
 				A41250332F40A7F500F6A95D /* SpeechBubble.swift in Sources */,
+				A49BD0A62F75D158002B0FBC /* AuthManager.swift in Sources */,
 				A443E6052F23982C0006DA36 /* ExerciseView.swift in Sources */,
 				A4749EAE2F37C9FC00AE21D6 /* StyleModifiers.swift in Sources */,
 			);
@@ -304,20 +346,28 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				AUTOMATION_APPLE_EVENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = EyeGym/EyeGym.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = ACTL7HTFZX;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = YES;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyeGym/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = EyeGym;
+				INFOPLIST_KEY_CFBundleDisplayName = EyeCoach;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "нам потрібна камера аби трекати правильність виконання";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used for face tracking to perform eye exercises correctly.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -333,10 +383,16 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ilonakeno.EyeGym;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ilonakeno.EyeCoach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -355,20 +411,29 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				AUTOMATION_APPLE_EVENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = EyeGym/EyeGym.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = ACTL7HTFZX;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = YES;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EyeGym/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = EyeGym;
+				INFOPLIST_KEY_CFBundleDisplayName = EyeCoach;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "нам потрібна камера аби трекати правильність виконання";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used for face tracking to perform eye exercises correctly.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -384,10 +449,16 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ilonakeno.EyeGym;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ilonakeno.EyeCoach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -520,7 +591,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A443E5D92F2390570006DA36 /* Build configuration list for PBXProject "EyeGym" */ = {
+		A443E5D92F2390570006DA36 /* Build configuration list for PBXProject "EyeCoach" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A443E5EF2F2390590006DA36 /* Debug */,
@@ -529,7 +600,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A443E5EC2F2390590006DA36 /* Build configuration list for PBXNativeTarget "EyeGym" */ = {
+		A443E5EC2F2390590006DA36 /* Build configuration list for PBXNativeTarget "EyeCoach" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A443E5ED2F2390590006DA36 /* Debug */,
@@ -539,6 +610,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A49BD0A02F75CF32002B0FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.11.0;
+			};
+		};
+		A49BD0B12F76B7B7002B0FBC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A49BD0A12F75CF32002B0FBC /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A49BD0A02F75CF32002B0FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		A49BD0A32F75CF32002B0FBC /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A49BD0A02F75CF32002B0FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		A49BD0B22F76B7B7002B0FBC /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A49BD0B12F76B7B7002B0FBC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		A49BD0BD2F77B4AA002B0FBC /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A49BD0A02F75CF32002B0FBC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A443E5D62F2390570006DA36 /* Project object */;
 }

@@ -12,18 +12,23 @@ struct ExerciseView: View {
     
     @State var exerciseName: String
     
-    var exerciseQueue: [String] = []
-    @State private var remainingQueue: [String] = []
+    // 🔥 НОВЕ: Команди від WorkoutSessionView 🔥
+    var isLastExercise: Bool = false
+    var onNextExercise: () -> Void = {}
     
-    // 🔥 МАГІЯ СИНХРОНІЗАЦІЇ ЗВУКУ 🔥
     @AppStorage("voiceGuidance") var isSoundOn: Bool = false
-    
-    // 🔥 ДОДАНО: МАГІЯ СИНХРОНІЗАЦІЇ РОЗМІРУ ТЕКСТУ 🔥
     @AppStorage("textSizeMultiplier") var textSizeMultiplier: Double = 1.0
     
     var onReplayInstruction: (() -> Void)? = nil
     
     let gameTimer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    
+    @State private var visualProgress: CGFloat = 0.0
+    @State private var showVisualIntro: Bool = false
+    
+    var isVisualOnly: Bool {
+        return exerciseName == "Zig Zag" || exerciseName == "Spiral"
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -31,8 +36,24 @@ struct ExerciseView: View {
                 // 1. КАМЕРА (Найнижчий шар)
                 ARCameraView(arManager: viewModel.arManager).ignoresSafeArea()
                 
+                // Фіолетовий фон для Unfocus
+                if exerciseName == "Unfocus" && !viewModel.isCompleted {
+                    RadialGradient(
+                        gradient: Gradient(colors: [Color(hex: "6155F5").opacity(0.4), Color(hex: "3A2D8A")]),
+                        center: .center,
+                        startRadius: 10,
+                        endRadius: 500
+                    )
+                    .ignoresSafeArea()
+                    
+                    Circle()
+                        .fill(Color.white.opacity(0.1))
+                        .frame(width: 100, height: 100)
+                        .blur(radius: 40)
+                }
+                
                 // 2. РАМКА
-                if !viewModel.isCompleted {
+                if !viewModel.isCompleted && (!isVisualOnly || showVisualIntro) {
                     VStack {
                         Spacer()
                         Ellipse()
@@ -48,8 +69,8 @@ struct ExerciseView: View {
                 // 3. ІГРОВИЙ ІНТЕРФЕЙС
                 gameInterface(geometry: geometry)
                 
-                // 4. ДІНОЗАВР-ПІДКАЗКА
-                if !viewModel.arManager.isFaceAligned && !viewModel.isCompleted && viewModel.currentLap == 0 {
+                // 4. ДІНОЗАВР-ПІДКАЗКА (ДЛЯ ЗВИЧАЙНИХ ВПРАВ)
+                if !isVisualOnly && !viewModel.arManager.isFaceAligned && !viewModel.isCompleted && viewModel.currentLap == 0 {
                     VStack {
                         Spacer()
                         HStack(alignment: .bottom, spacing: 0) {
@@ -59,11 +80,9 @@ struct ExerciseView: View {
                                 .frame(width: 180)
                                 .offset(x: -5, y: 150)
                             
-                            // 🔥 КАСТОМНИЙ ТЕКСТ ДЛЯ МАСАЖУ 🔥
                             SpeechBubble(text: exerciseName == "Massage" ? "Put your head in the frame\nand close your eyes!" : "Put your head in the frame!")
                                 .frame(width: 180)
-                                // 🔥 ЗАСТОСОВАНО МАСШТАБУВАННЯ ДО БУЛЬБАШКИ 🔥
-                                .scaleEffect(textSizeMultiplier)
+                                .scaleEffect(CGFloat(textSizeMultiplier))
                                 .offset(x: -130, y: -165)
                             
                             Spacer()
@@ -73,6 +92,56 @@ struct ExerciseView: View {
                     }
                     .transition(.move(edge: .leading).combined(with: .opacity))
                     .animation(.spring(response: 0.5, dampingFraction: 0.6), value: viewModel.arManager.isFaceAligned)
+                }
+                
+                // ДІНО-ПІДКАЗКА ДЛЯ ЗИГЗАГУ/СПІРАЛІ (ПЕРЕД ПОЧАТКОМ НА 2 СЕК)
+                if isVisualOnly && showVisualIntro && !viewModel.isCompleted {
+                    VStack {
+                        Spacer()
+                        HStack(alignment: .bottom, spacing: 0) {
+                            Image("dino")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 180)
+                                .offset(x: -5, y: 150)
+                            
+                            SpeechBubble(text: "Follow the capsule!")
+                                .frame(width: 200)
+                                .scaleEffect(CGFloat(textSizeMultiplier))
+                                .offset(x: -130, y: -165)
+                            
+                            Spacer()
+                        }
+                        .padding(.leading, -10)
+                        .padding(.bottom, 30)
+                    }
+                    .transition(.move(edge: .leading).combined(with: .opacity))
+                    .zIndex(21)
+                }
+                
+                // ДІНО-ПОПЕРЕДЖЕННЯ ПРО ПОМИЛКУ
+                if let warningText = viewModel.dinoWarningText {
+                    VStack {
+                        Spacer()
+                        HStack(alignment: .bottom, spacing: 0) {
+                            Image("dino")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 150)
+                                .offset(y: 100)
+                            
+                            SpeechBubble(text: warningText)
+                                .frame(width: 220)
+                                .scaleEffect(CGFloat(textSizeMultiplier))
+                                .offset(x: -110, y: -120)
+                            
+                            Spacer()
+                        }
+                        .padding(.leading, -20)
+                        .padding(.bottom, 50)
+                    }
+                    .transition(.move(edge: .leading).combined(with: .opacity))
+                    .zIndex(20)
                 }
                 
                 // 5. ЕКРАН УСПІХУ
@@ -95,33 +164,20 @@ struct ExerciseView: View {
                             
                             SpeechBubble(text: "Great! Let's move on!")
                                 .frame(width: 220)
-                                // 🔥 ЗАСТОСОВАНО МАСШТАБУВАННЯ ДО БУЛЬБАШКИ 🔥
-                                .scaleEffect(textSizeMultiplier)
+                                .scaleEffect(CGFloat(textSizeMultiplier))
                                 .offset(x: -20, y: -100)
                             
                             Button(action: {
                                 if userManager.isUserLoggedIn {
                                     context.insert(UserSession(exerciseName: exerciseName, isCompleted: true))
+                                    // 🔥 ДОДАНО ПІДРАХУНОК СТРІКУ 🔥
+                                    userManager.addExerciseCompleted()
                                 } else {
                                     userManager.triggerRegistration()
                                 }
-                                
-                                if !remainingQueue.isEmpty {
-                                    remainingQueue.removeFirst()
-                                }
-                                
-                                if let nextExercise = remainingQueue.first {
-                                    withAnimation {
-                                        exerciseName = nextExercise
-                                        viewModel.isCompleted = false
-                                        viewModel.currentLap = 0
-                                        viewModel.startExercise(name: nextExercise)
-                                    }
-                                } else {
-                                    dismiss()
-                                }
+                                onNextExercise() // Кажемо WorkoutSessionView перемикати
                             }) {
-                                Text(remainingQueue.count > 1 ? "Next" : "Finish")
+                                Text(isLastExercise ? "Finish" : "Next")
                                     .font(.system(size: 20, weight: .semibold))
                                     .foregroundColor(.white)
                                     .frame(width: 99, height: 54)
@@ -139,8 +195,7 @@ struct ExerciseView: View {
                 VStack {
                     ZStack(alignment: .top) {
                         Text(exerciseName)
-                            // 🔥 ЗАСТОСОВАНО МАСШТАБУВАННЯ ДО НАЗВИ ВПРАВИ 🔥
-                            .font(.system(size: 24 * textSizeMultiplier, weight: .bold))
+                            .font(.system(size: CGFloat(24.0 * textSizeMultiplier), weight: .bold))
                             .foregroundColor(.white)
                             .shadow(radius: 5)
                             .multilineTextAlignment(.center)
@@ -213,42 +268,37 @@ struct ExerciseView: View {
                 }
                 .zIndex(100)
             }
-        }
-        .onAppear {
-            if !exerciseQueue.isEmpty && remainingQueue.isEmpty {
-                remainingQueue = exerciseQueue
-            }
-            if let first = remainingQueue.first {
-                exerciseName = first
-            }
-            viewModel.startExercise(name: exerciseName)
-            
-            // 🔥 ОЗВУЧКА НА СТАРТІ (СПЕЦИФІЧНА ДЛЯ МАСАЖУ) 🔥
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                if isSoundOn {
-                    if !viewModel.arManager.isFaceAligned {
-                        SpeechManager.shared.speak(text: exerciseName == "Massage" ? "Put your head in the frame and close your eyes!" : "Put your head in the frame!")
-                    } else {
-                        SpeechManager.shared.speak(text: exerciseName == "Massage" ? "Close your eyes to start the timer!" : "Let's start!")
+            .onAppear {
+                viewModel.startExercise(name: exerciseName)
+                
+                if isVisualOnly {
+                    triggerVisualExercise(for: exerciseName)
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        if isSoundOn {
+                            if !viewModel.arManager.isFaceAligned {
+                                SpeechManager.shared.speak(text: exerciseName == "Massage" ? "Put your head in the frame and close your eyes!" : "Put your head in the frame!")
+                            } else {
+                                SpeechManager.shared.speak(text: exerciseName == "Massage" ? "Close your eyes to start the timer!" : "Let's start!")
+                            }
+                        }
                     }
                 }
             }
         }
         .onChange(of: viewModel.arManager.isFaceAligned) { aligned in
-            if aligned && !viewModel.isCompleted && isSoundOn {
+            if aligned && !viewModel.isCompleted && isSoundOn && !isVisualOnly {
                 SpeechManager.shared.speak(text: exerciseName == "Massage" ? "Perfect! Close your eyes to begin." : "Perfect! Follow the targets.")
             }
         }
         .onChange(of: viewModel.isCompleted) { completed in
             if completed {
-                // 🔥 ВІБРАЦІЯ БЗ-БЗ-БЗ КОЛИ МАСАЖ ЗАВЕРШЕНО 🔥
                 if exerciseName == "Massage" {
                     let impact = UIImpactFeedbackGenerator(style: .heavy)
                     impact.impactOccurred()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { impact.impactOccurred() }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { impact.impactOccurred() }
                 }
-                
                 if isSoundOn {
                     SpeechManager.shared.speak(text: "Great! Let's move on!")
                 }
@@ -263,21 +313,52 @@ struct ExerciseView: View {
         }
     }
     
+    func triggerVisualExercise(for name: String) {
+        showVisualIntro = true
+        visualProgress = 0.0
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            if isSoundOn && exerciseName == name && !viewModel.isCompleted {
+                SpeechManager.shared.speak(text: "Follow the capsule!")
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            if exerciseName == name && !viewModel.isCompleted {
+                withAnimation { showVisualIntro = false }
+                startVisualAnimations()
+            }
+        }
+    }
+    
+    func startVisualAnimations() {
+        let passDuration = 15.0 // Плавні 10 секунд на прохід
+        let totalPasses = 6
+        
+        withAnimation(.easeInOut(duration: passDuration).repeatCount(totalPasses, autoreverses: true)) {
+            visualProgress = 1.0
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + (passDuration * Double(totalPasses))) {
+            if isVisualOnly && !viewModel.isCompleted { viewModel.isCompleted = true }
+        }
+    }
+    
     @ViewBuilder
     func gameInterface(geometry: GeometryProxy) -> some View {
         ZStack {
             if !viewModel.isCompleted {
                 VStack {
-                    // 🔥 ЛОГІКА ТАЙМЕРА ДЛЯ МАСАЖУ 🔥
-                    if exerciseName == "Massage" {
+                    if exerciseName == "Massage" || exerciseName == "Focus" || exerciseName == "Unfocus" || exerciseName == "Blink and Focus" {
                         Text("\(viewModel.timeRemaining) s")
-                            .font(.system(size: 60 * textSizeMultiplier, weight: .bold))
+                            .font(.system(size: CGFloat(60.0 * textSizeMultiplier), weight: .bold))
                             .foregroundColor(.white)
                             .shadow(radius: 5)
                             .padding(.top, 80)
-                    } else {
+                        
+                    } else if !isVisualOnly {
                         Text("\(viewModel.currentLap) / \(viewModel.targetLaps)")
-                            .font(.system(size: 60 * textSizeMultiplier, weight: .bold))
+                            .font(.system(size: CGFloat(60.0 * textSizeMultiplier), weight: .bold))
                             .foregroundColor(.white)
                             .shadow(radius: 5)
                             .padding(.top, 80)
@@ -317,33 +398,160 @@ struct ExerciseView: View {
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2 - 150)
                 StatusCircle(isActive: viewModel.verticalStage == .up, icon: "arrow.down")
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2 + 150)
-            }
-            
-            if !viewModel.isCompleted {
-                Button(action: {
-                    // 🔥 СИМУЛЯЦІЯ ДЛЯ МАСАЖУ 🔥
-                    if exerciseName == "Massage" {
-                        viewModel.timeRemaining -= 5 // Швидко промотуємо час
-                        if viewModel.timeRemaining <= 0 {
-                            viewModel.isCompleted = true
-                        }
-                    } else {
-                        viewModel.currentLap += 1
-                        if viewModel.currentLap >= viewModel.targetLaps {
-                            viewModel.isCompleted = true
-                        }
-                    }
-                }) {
-                    Text("Tap to simulate")
-                        .font(.caption)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                        .foregroundColor(.white)
+                    
+            } else if exerciseName == "Zig Zag" {
+                // 🔥 ІДЕАЛЬНЕ ВИРІВНЮВАННЯ ЗИГЗАГУ (ЧЕРЕЗ ZSTACK) 🔥
+                ZStack {
+                    ZigZagShape()
+                        .stroke(Color(hex: "6155F5"), style: StrokeStyle(lineWidth: 8, lineCap: .round, dash: [10, 15]))
+                    
+                    LiquidGlassCapsule()
+                        .modifier(ZigZagAnimator(progress: visualProgress, size: geometry.size))
                 }
-                .padding(.top, 200)
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                
+            } else if exerciseName == "Spiral" {
+                // 🔥 ІДЕАЛЬНЕ ВИРІВНЮВАННЯ СПІРАЛІ (ЧЕРЕЗ ZSTACK) 🔥
+                ZStack {
+                    SpiralShape(loops: 3)
+                        .stroke(Color(hex: "6155F5"), style: StrokeStyle(lineWidth: 8, lineCap: .round, dash: [10, 15]))
+                        .frame(width: 420, height: 420)
+                    
+                    LiquidGlassCapsule()
+                        .modifier(SpiralAnimator(progress: visualProgress, size: CGSize(width: 420, height: 420), loops: 3))
+                }
+                .position(x: geometry.size.width / 2 + 15, y: geometry.size.height / 2)
+                    
+            } else if exerciseName == "Focus" {
+                Circle()
+                    .fill(Color(hex: "6155F5"))
+                    .frame(width: 30, height: 30)
+                    .overlay(Circle().stroke(Color.white, lineWidth: 3))
+                    .shadow(color: Color(hex: "6155F5").opacity(0.8), radius: 10)
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
         }
+    }
+}
+
+// ====================================================================
+// 🔥 ВСІ СТРУКТУРИ ТЕПЕР ТУТ І ТІЛЬКИ ТУТ 🔥
+// ====================================================================
+
+struct ZigZagAnimator: AnimatableModifier {
+    var progress: CGFloat
+    var size: CGSize
+    
+    var animatableData: CGFloat {
+        get { progress }
+        set { progress = newValue }
+    }
+    
+    func body(content: Content) -> some View {
+        let pts = [
+            CGPoint(x: size.width * 0.2, y: size.height * 0.1),
+            CGPoint(x: size.width * 0.8, y: size.height * 0.26),
+            CGPoint(x: size.width * 0.2, y: size.height * 0.42),
+            CGPoint(x: size.width * 0.8, y: size.height * 0.58),
+            CGPoint(x: size.width * 0.2, y: size.height * 0.74),
+            CGPoint(x: size.width * 0.8, y: size.height * 0.9)
+        ]
+        let totalSegments = CGFloat(pts.count - 1)
+        let scaledProgress = max(0, min(1, progress)) * totalSegments
+        let segmentIndex = min(Int(scaledProgress), pts.count - 2)
+        let segmentProgress = scaledProgress - CGFloat(segmentIndex)
+        
+        let p1 = pts[segmentIndex]
+        let p2 = pts[segmentIndex + 1]
+        
+        let currentPos = CGPoint(
+            x: p1.x + (p2.x - p1.x) * segmentProgress,
+            y: p1.y + (p2.y - p1.y) * segmentProgress
+        )
+        let currentRot = atan2(p2.y - p1.y, p2.x - p1.x) * 180.0 / .pi - 90.0
+        
+        return content
+            .rotationEffect(Angle(degrees: Double(currentRot)))
+            // 🔥 РАХУЄМО ВІД ЦЕНТРУ РАМКИ 🔥
+            .offset(x: currentPos.x - size.width / 2, y: currentPos.y - size.height / 2)
+    }
+}
+
+struct SpiralAnimator: AnimatableModifier {
+    var progress: CGFloat
+    var size: CGSize
+    var loops: Int
+    
+    var animatableData: CGFloat {
+        get { progress }
+        set { progress = newValue }
+    }
+    
+    func body(content: Content) -> some View {
+        let maxRadius = min(size.width, size.height) / 2
+        let currentRadius = maxRadius * progress
+        let currentAngle = Double(progress) * Double(loops) * 360.0
+        
+        return content
+            .offset(y: -currentRadius)
+            .rotationEffect(Angle(degrees: currentAngle))
+    }
+}
+
+struct ZigZagShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let pts = [
+            CGPoint(x: rect.width * 0.2, y: rect.height * 0.1),
+            CGPoint(x: rect.width * 0.8, y: rect.height * 0.26),
+            CGPoint(x: rect.width * 0.2, y: rect.height * 0.42),
+            CGPoint(x: rect.width * 0.8, y: rect.height * 0.58),
+            CGPoint(x: rect.width * 0.2, y: rect.height * 0.74),
+            CGPoint(x: rect.width * 0.8, y: rect.height * 0.9)
+        ]
+        path.move(to: pts[0])
+        for i in 1..<pts.count { path.addLine(to: pts[i]) }
+        return path
+    }
+}
+
+struct LiquidGlassCapsule: View {
+    var body: some View {
+        ZStack {
+            Capsule()
+                .fill(Color.white.opacity(0.3))
+                .background(Capsule().fill(.ultraThinMaterial))
+                .overlay(
+                    Capsule()
+                        .stroke(LinearGradient(colors: [.white, .white.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+                )
+                .shadow(color: Color(hex: "6155F5").opacity(0.5), radius: 10, x: 0, y: 5)
+            
+            Capsule()
+                .fill(Color.white.opacity(0.8))
+                .frame(width: 4, height: 30)
+        }
+        .frame(width: 30, height: 60)
+    }
+}
+
+struct SpiralShape: Shape {
+    var loops: Int
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let maxRadius = min(rect.width, rect.height) / 2
+        path.move(to: center)
+        let maxAngle = Double.pi * 2.0 * Double(loops)
+        for angle in stride(from: 0.0, through: maxAngle, by: 0.1) {
+            let progress = angle / maxAngle
+            let radius = maxRadius * CGFloat(progress)
+            let x = center.x + radius * CGFloat(sin(angle))
+            let y = center.y - radius * CGFloat(cos(angle))
+            path.addLine(to: CGPoint(x: x, y: y))
+        }
+        return path
     }
 }
 

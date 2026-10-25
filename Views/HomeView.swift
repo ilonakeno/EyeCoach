@@ -19,43 +19,100 @@ struct HomeView: View {
                         
                         // HEADER
                         HStack {
-                            Text("EyeGym")
+                            Text("EyeCoach")
                                 .font(.h1)
-                                .foregroundColor(.primary.opacity(0.8)) // 🎨 Замінили .black на .primary
+                                .foregroundColor(.primary.opacity(0.8))
                             Spacer()
                             Button(action: {
                                 showProfile = true
                             }) {
-                                Circle()
-                                    .fill(.ultraThinMaterial)
-                                    .frame(width: 50, height: 50)
-                                    .overlay(Image(systemName: "person.fill").foregroundColor(userManager.isUserLoggedIn ? .primaryBlue : .gray))
-                                    .shadow(radius: 5)
+                                // 🔥 ТЕПЕР ТУТ ВІДОБРАЖАЄТЬСЯ РЕАЛЬНЕ ФОТО ЮЗЕРА 🔥
+                                if let data = userManager.profileImageData, let uiImage = UIImage(data: data) {
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 50, height: 50)
+                                        .clipShape(Circle())
+                                        .shadow(radius: 5)
+                                } else {
+                                    Circle()
+                                        .fill(.ultraThinMaterial)
+                                        .frame(width: 50, height: 50)
+                                        .overlay(Image(systemName: "person.fill").foregroundColor(userManager.isUserLoggedIn ? .primaryBlue : .gray))
+                                        .shadow(radius: 5)
+                                }
                             }
                         }
                         .padding(.horizontal).padding(.top, 10)
                         
-                        // PROGRESS CARD
+                        // 🔥 PROGRESS CARD 🔥
                         Button(action: {
-                            if !userManager.isUserLoggedIn { userManager.triggerRegistration() }
-                        }) {
-                            HStack(spacing: 0) {
-                                Image("dino")
-                                    .resizable().aspectRatio(contentMode: .fit)
-                                    .frame(width: 130, height: 150)
-                                    .padding(.leading, -10)
-                                    .shadow(color: .black.opacity(0.2), radius: 8, y: 5)
-                                    .offset(x: 10)
-                                Spacer()
-                                VStack(spacing: 0) {
-                                    Text(userManager.isUserLoggedIn ? "37" : "--")
-                                        .font(.giantNumber).foregroundStyle(Color.primaryBlue)
-                                    Text("days streak").font(.h3).foregroundColor(.primaryBlue.opacity(0.8))
-                                }
-                                .padding(.trailing, 70)
+                            if !userManager.isUserLoggedIn {
+                                userManager.triggerRegistration()
                             }
-                            .frame(height: 170).frame(maxWidth: .infinity)
-                            .liquidGlass().padding(.horizontal)
+                        }) {
+                            ZStack(alignment: .topLeading) {
+                                
+                                // ШАР 1: САМА КАРТКА (З ФОНОМ ТА РАМКОЮ)
+                                HStack(spacing: 0) {
+                                    Image("dino")
+                                        .resizable().aspectRatio(contentMode: .fit)
+                                        .frame(width: 130, height: 150)
+                                        .shadow(color: .black.opacity(0.2), radius: 8, y: 5)
+                                        .offset(x: 10, y: 15)
+                                    
+                                    Spacer()
+                                    
+                                    // ТЕКСТ СПРАВА
+                                    VStack(spacing: 0) {
+                                        if !userManager.isUserLoggedIn {
+                                            Text("Sign in")
+                                                .font(.title).bold().foregroundColor(.primaryBlue)
+                                            Text("to save progress")
+                                                .font(.subheadline).foregroundColor(.primaryBlue.opacity(0.8))
+                                        } else {
+                                            Text("\(userManager.streakCount)")
+                                                .font(.system(size: 60, weight: .bold, design: .rounded))
+                                                .foregroundStyle(Color.primaryBlue)
+                                            Text(userManager.streakCount == 1 ? "day streak 🔥" : "days streak 🔥")
+                                                .font(.h3).foregroundColor(.primaryBlue.opacity(0.8))
+                                                .padding(.top, -10)
+                                        }
+                                    }
+                                    .padding(.trailing, 40)
+                                }
+                                .frame(height: 170).frame(maxWidth: .infinity)
+                                .liquidGlass()
+                                
+                                // ШАР 2: ХМАРКА
+                                if userManager.isUserLoggedIn && userManager.exercisesToday == 0 {
+                                    VStack(spacing: 0) {
+                                        Text("Time for your\n3 exercises! 👀")
+                                            .font(.caption)
+                                            .fontWeight(.bold)
+                                            .multilineTextAlignment(.center)
+                                            .padding(8)
+                                            .background(Color.white)
+                                            .foregroundColor(Color(hex: "6155F5"))
+                                            .cornerRadius(12)
+                                            .shadow(color: .black.opacity(0.15), radius: 4, x: -5, y: -5)
+                                            .offset(x: -20, y: -50)
+                                        
+                                        // Хвостик хмарки
+                                        Triangle()
+                                            .fill(Color.white)
+                                            .frame(width: 12, height: 8)
+                                            .rotationEffect(.degrees(180))
+                                            .padding(.leading, -50)
+                                            .shadow(color: .black.opacity(0.05), radius: 2, y: 25)
+                                            .offset(x: -20, y: -51)
+                                            .zIndex(-1)
+                                    }
+                                    .offset(x: 90, y: 25)
+                                    .zIndex(10)
+                                }
+                            }
+                            .padding(.horizontal)
                         }
                         .buttonStyle(PlainButtonStyle())
                         
@@ -69,7 +126,7 @@ struct HomeView: View {
                                 actionText: "View list",
                                 icon: "play.fill",
                                 listDestination: AnyView(ExerciseListView(type: .myList, data: appData)),
-                                playDestination: AnyView(InstructionView(exerciseName: myQueue.first!, exerciseQueue: myQueue))
+                                playDestination: AnyView(WorkoutSessionView(exerciseQueue: myQueue))
                             )
                             
                             let allQueue = appData.allExercises.isEmpty ? ["Blinking"] : appData.allExercises.map { $0.title }
@@ -78,7 +135,7 @@ struct HomeView: View {
                                 actionText: "View list",
                                 icon: "play.fill",
                                 listDestination: AnyView(ExerciseListView(type: .allList, data: appData)),
-                                playDestination: AnyView(InstructionView(exerciseName: allQueue.first!, exerciseQueue: allQueue))
+                                playDestination: AnyView(WorkoutSessionView(exerciseQueue: allQueue))
                             )
                             
                             let relieverQueue = appData.eyeRelieverExercises.isEmpty ? ["Blinking"] : appData.eyeRelieverExercises.map { $0.title }
@@ -87,27 +144,31 @@ struct HomeView: View {
                                 actionText: "View list",
                                 icon: "play.fill",
                                 listDestination: AnyView(ExerciseListView(type: .eyeReliever, data: appData)),
-                                playDestination: AnyView(InstructionView(exerciseName: relieverQueue.first!, exerciseQueue: relieverQueue))
+                                playDestination: AnyView(WorkoutSessionView(exerciseQueue: relieverQueue))
                             )
                             
+                            // ВЕДЕ НА COMING SOON
                             MenuCard(
                                 title: "Self sight testing",
                                 actionText: "Coming soon",
                                 icon: "lock.fill",
-                                listDestination: AnyView(EmptyView()),
-                                playDestination: AnyView(EmptyView())
+                                listDestination: AnyView(ComingSoonView(title: "Sight Testing")),
+                                playDestination: AnyView(ComingSoonView(title: "Sight Testing"))
                             )
                         }
                         
-                        // ARTICLE
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("How daily eye exercises helps you see better?")
-                                .font(.bodyBold).foregroundColor(.primary) // 🎨 Замінили .black на .primary
-                                .fixedSize(horizontal: false, vertical: true)
-                            Text("Read article").font(.subhead).foregroundColor(.primaryBlue)
+                        // ARTICLE ТЕЖ ВЕДЕ НА COMING SOON
+                        NavigationLink(destination: ComingSoonView(title: "Article")) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("How daily eye exercises helps you see better?")
+                                    .font(.bodyBold).foregroundColor(.primary)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Text("Read article").font(.subhead).foregroundColor(.primaryBlue)
+                            }
+                            .padding(25).frame(maxWidth: .infinity, alignment: .leading)
+                            .liquidGlass().padding(.horizontal).padding(.bottom, 80)
                         }
-                        .padding(25).frame(maxWidth: .infinity, alignment: .leading)
-                        .liquidGlass().padding(.horizontal).padding(.bottom, 80)
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
@@ -115,9 +176,12 @@ struct HomeView: View {
                 ProfileView()
                     .environmentObject(userManager)
             }
+            .sheet(isPresented: $userManager.showRegistrationPopup) {
+                ProfileView()
+                    .environmentObject(userManager)
+            }
         }
         .applySmartScale()
-        // ✨ МАГІЯ ТЕМНОЇ ТЕМИ: примусово вмикає ту тему, яка вибрана в налаштуваннях ✨
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }
 }
@@ -134,7 +198,7 @@ struct MenuCard: View {
         HStack {
             NavigationLink(destination: listDestination) {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(title).font(.bodyBold).foregroundColor(.primary) // 🎨 Замінили .black на .primary
+                    Text(title).font(.bodyBold).foregroundColor(.primary)
                     Text(actionText).font(.caption).foregroundColor(.primaryBlue)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -156,7 +220,60 @@ struct MenuCard: View {
     }
 }
 
+// 🔥 ВИПРАВЛЕНИЙ ЕКРАН COMING SOON З ФОНОМ 🔥
+struct ComingSoonView: View {
+    var title: String
+    
+    var body: some View {
+        ZStack {
+            // Додав фон, щоб більше ніякого тупо чорного екрану!
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            VStack(spacing: 20) {
+                Image("dino") // Кольоровий Діно без сірих фільтрів
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150)
+                    .shadow(color: .black.opacity(0.1), radius: 10, y: 5)
+                
+                Text("Coming Soon!")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(Color(hex: "6155F5"))
+                
+                Text("We are working hard to bring you the **\(title)** feature in the next update.\n\nStay tuned!")
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                    .foregroundColor(.primary)
+                    .font(.body)
+            }
+        }
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+// ХЕЛПЕР ДЛЯ ХМАРКИ ДІНО
+struct Triangle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
+        return path
+    }
+}
+
+// ПРЕВ'Ю ІЗ ФЕЙКОВИМ ЮЗЕРОМ ДЛЯ КАНВАСУ
 #Preview {
-    HomeView()
-        .environmentObject(UserManager())
+    let mockUser = UserManager()
+    mockUser.isUserLoggedIn = true
+    mockUser.userName = "Ілона"
+    mockUser.streakCount = 14
+    mockUser.exercisesToday = 0
+    
+    return HomeView()
+        .environmentObject(mockUser)
 }

@@ -68,16 +68,26 @@ struct ExerciseItem: Identifiable, Hashable {
 
 class AppData: ObservableObject {
     @Published var allExercises: [ExerciseItem] = [
+        
         ExerciseItem(title: "Blinking", icon: "Blinking", isAdded: true),
         ExerciseItem(title: "Circle", icon: "Circle", isAdded: true),
         ExerciseItem(title: "Horizon", icon: "Horizon", isAdded: false),
         ExerciseItem(title: "Vertical", icon: "Vertical", isAdded: false),
         ExerciseItem(title: "Figure 8", icon: "Figure 8", isAdded: false),
-        ExerciseItem(title: "Massage", icon: "Massage", isAdded: false)
+        ExerciseItem(title: "Massage", icon: "Massage", isAdded: false),
+        ExerciseItem(title: "Focus", icon: "Focus", isAdded: false),
+        ExerciseItem(title: "Zig Zag", icon: "Zig Zag", isAdded: false),
+        ExerciseItem(title: "Spiral", icon: "Spiral", isAdded: false),
+        ExerciseItem(title: "Blink and Focus", icon: "Blink and Focus", isAdded: false),
+        ExerciseItem(title: "Unfocus", icon: "Focus & Blink", isAdded: false),
+
+       
+    
+        
     ]
     
     var myExercises: [ExerciseItem] { allExercises.filter { $0.isAdded } }
-    var eyeRelieverExercises: [ExerciseItem] { allExercises.filter { $0.title == "Blinking" } }
+    var eyeRelieverExercises: [ExerciseItem] { allExercises.filter { $0.title == "Blinking"  || $0.title == "Blink and Focus" || $0.title == "Massage" || $0.title == "Circle" || $0.title == "Unfocus"} }
     
     func toggleAdd(for exercise: ExerciseItem) {
         if let index = allExercises.firstIndex(where: { $0.id == exercise.id }) {

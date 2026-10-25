@@ -125,7 +125,8 @@ struct ExerciseListRow: View {
             
             Spacer()
             
-            NavigationLink(destination: InstructionView(exerciseName: exercise.title)) {
+            // 🔥 ЗМІНЕНО: Запускаємо WorkoutSessionView замість InstructionView 🔥
+            NavigationLink(destination: WorkoutSessionView(exerciseQueue: [exercise.title])) {
                 Circle()
                     .fill(Color.primaryBlue)
                     .frame(width: 44, height: 44)
